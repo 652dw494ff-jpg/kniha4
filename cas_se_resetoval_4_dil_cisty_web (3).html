@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ČAS SE RESETOVAL — 4. DÍL</title>
+<style>
+*{box-sizing:border-box} body{margin:0;background:#07090c;color:#e8edf2;font-family:Georgia,serif}
+.hero{padding:65px 20px 55px;text-align:center;background:radial-gradient(circle,#27323e,#0a0d11 70%);border-bottom:1px solid #303842}
+.kicker{font:12px Arial;letter-spacing:5px;color:#98a4af} h1{font-size:clamp(35px,7vw,70px);margin:16px 0 8px} .sub{font:14px Arial;letter-spacing:3px;color:#aab4bd}
+main{max-width:900px;margin:auto;padding:30px 18px 70px}
+.intro,.card,.chapter{background:#0e1319;border:1px solid #2a323b;border-radius:15px}
+.intro{padding:22px;line-height:1.6;margin-bottom:20px;color:#c8d0d7}
+.card{width:100%;display:flex;align-items:center;gap:16px;padding:18px;margin:10px 0;color:#eee;text-align:left;cursor:pointer}
+.card:hover{background:#151b22;border-color:#697681} .card span{color:#7e8993;font:12px Arial} .card div{flex:1} .card b{font-size:16px} .card small{display:block;color:#808b96;font:12px Arial;margin-top:5px} .card strong{font:28px Arial;color:#8d98a2}
+#reader{display:none} .back{background:#11171d;color:#e5ebef;border:1px solid #3b444d;border-radius:9px;padding:11px 16px;cursor:pointer;margin-bottom:25px}
+.chapter{padding:32px 28px;line-height:1.8} .num{font:11px Arial;letter-spacing:3px;color:#7f8a95} h2{font-size:clamp(28px,5vw,48px);margin:10px 0 28px} .story{font-size:19px;color:#d7dde2} .story p{margin:0 0 15px}
+.end{text-align:center;color:#79848e;font:11px Arial;letter-spacing:3px;margin-top:28px}
+
+.reader-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.text-tools,.chapter-nav{display:flex;gap:8px}
+.tool-btn,.nav-btn{background:#11171d;color:#e5ebef;border:1px solid #3b444d;border-radius:9px;padding:10px 14px;cursor:pointer}
+.tool-btn:hover,.nav-btn:hover{background:#192129;border-color:#697681}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.size-label{font:12px Arial;color:#89949e;min-width:52px;text-align:center}
+</style></head><body>
+<header class="hero"><div class="kicker">ČAS SE RESETOVAL</div><h1>RÍŠA VÍ, KDE TO ZAČALO</h1><div class="sub">4. DÍL</div></header>
+<main id="list"><div class="intro"><b>ČAS SE RESETOVAL: RÍŠA VÍ, KDE TO ZAČALO</b><br>Čtvrtý díl příběhu. Vyber kapitolu a otevři ji.</div><button class="card" onclick="openChapter(0)"><span>01</span><div><b>KAPITOLA 1 — TRVALO VÁM TO</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(1)"><span>02</span><div><b>KAPITOLA 2 — RÍŠA</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(2)"><span>03</span><div><b>KAPITOLA 3 — PRVNÍ VZPOMÍNKA</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(3)"><span>04</span><div><b>KAPITOLA 4 — STŮL</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(4)"><span>05</span><div><b>KAPITOLA 5 — ZVUK ZE ŠKOLY</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(5)"><span>06</span><div><b>KAPITOLA 6 — TŘÍDA 9.A</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(6)"><span>07</span><div><b>KAPITOLA 7 — VIDEO</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(7)"><span>08</span><div><b>KAPITOLA 8 — TELEFONÁT</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(8)"><span>09</span><div><b>KAPITOLA 9 — PÁTÉ MÍSTO</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(9)"><span>10</span><div><b>KAPITOLA 10 — CHYBĚJÍCÍ</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(10)"><span>11</span><div><b>KAPITOLA 11 — NÁVRAT</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<button class="card" onclick="openChapter(11)"><span>12</span><div><b>KAPITOLA 12 — 20:29</b><small>Otevřít kapitolu</small></div><strong>›</strong></button>
+<div class="end">POKRAČOVÁNÍ PŘÍŠTĚ… 👁️</div></main>
+<main id="reader">
+<div class="reader-tools">
+  <button class="back" onclick="closeChapter()">← Zpět na kapitoly</button>
+  <div class="text-tools">
+    <button class="tool-btn" onclick="changeFontSize(-1)" title="Zmenšit text">A−</button>
+    <span class="size-label" id="sizeLabel">100 %</span>
+    <button class="tool-btn" onclick="changeFontSize(1)" title="Zvětšit text">A+</button>
+  </div>
+</div>
+<div id="content"></div>
+<div class="chapter-nav">
+  <button class="nav-btn" id="prevBtn" onclick="previousChapter()">← Předchozí</button>
+  <button class="nav-btn" id="nextBtn" onclick="nextChapter()">Další →</button>
+</div>
+</main>
+<script>
+const chapters = [
+  {"title":"TRVALO VÁM TO","paras":["„Trvalo vám to.“","Patrik zvedl hlavu. Hlas přišel z chodby, ale nikdo tam nebyl.","Na zdi stále svítilo 20:28. Jenže tentokrát se nic neresetovalo.","Vojta se podíval na Adama. „Takže… RÍŠA čeká.“","Lukáš zbledl. „On ví, že jsme tady.“","Na dveřích se objevila věta: RÍŠA ČEKÁ.","Patrik sáhl na kliku. V tu chvíli světlo zhaslo.","A když se znovu rozsvítilo, postava v místnosti byla pryč."]},
+  {"title":"RÍŠA","paras":["„Musíme najít RÍŠU,“ řekl Adam.","Lukáš mlčel.","„Ty něco víš, že jo?“ zeptal se Patrik.","„Znám RÍŠU déle, než si myslíte.“","„Jak dlouho?“","„Od prvního dne, kdy jsem byl v tomhle domě.“","Vojta se zarazil. „Ty jsi tu byl už před námi?“","Lukáš přikývl.","„A RÍŠA tam byl taky.“"]},
+  {"title":"PRVNÍ VZPOMÍNKA","paras":["„Bylo to před rokem,“ začal Lukáš.","„Jednou jsem se probudil a na telefonu jsem měl jedinou adresu. Tenhle dům.“","„Přišel jsem sem. A uvnitř seděl RÍŠA.“","„Sám?“","Lukáš zavrtěl hlavou. „Ne.“","„Byl tam ještě někdo.“","„Kdo?“","Lukáš si položil ruku na čelo.","„Nevím.“","„Jak to můžeš nevědět?“","„Protože pokaždé, když si na něj vzpomenu… ta vzpomínka zmizí.“"]},
+  {"title":"STŮL","paras":["V další místnosti stál starý dřevěný stůl.","Na jeho desce byla vyrytá čísla:","28","21:21","21:30","22:00","20:28","Pod nimi stálo: RÍŠA — 5. MÍSTO","Patrik si všiml dalších pěti postav nakreslených na papíře.","Čtyři byly přeškrtnuté.","TEN, KTERÝ SI PAMATUJE, SE NESMÍ VRÁTIT."]},
+  {"title":"ZVUK ZE ŠKOLY","paras":["Najednou se domem rozezněl školní zvonek.","Všichni ztuhli.","Patrikův telefon se rozsvítil.","7:31","ZÁKLADNÍ ŠKOLA CHVALTICE","TŘÍDA 9.A","Na displeji se objevila fotografie jejich třídy.","KDO BYL PRVNÍ?","Datum fotografie: 14.10.2025.","Lukáš se na obrazovku dlouze díval.","„Já tam byl.“"]},
+  {"title":"TŘÍDA 9.A","paras":["Najednou se všechno kolem nich změnilo.","Už nebyli v domě.","Stáli ve své třídě.","Byla stejná jako ve škole 14.10.2025.","Na jednom stole bylo vyryto: P + V + A + L","Patrik přejel prstem po písmenách.","„Patrik, Vojta, Adam, Lukáš…“","Vojta ukázal na tabuli.","Uprostřed bylo jediné písmeno: R"]},
+  {"title":"VIDEO","paras":["Na učitelském stole ležel starý telefon.","Našel se v něm jediný soubor.","14.10.2025 — 20:28","Patrik video spustil.","Na záznamu byl mladší Lukáš.","Vedle něj stála neznámá postava.","Video skončilo.","Na displeji se objevila zpráva: CHCETE VĚDĚT, KDO TO BYL?","Patrik napsal: ANO.","Odpověď přišla okamžitě: TAK SE ZEPTEJTE RÍŠI."]},
+  {"title":"TELEFONÁT","paras":["Patrik vytočil RÍŠU.","Telefon zazvonil jen jednou.","„Vy jste to zase spustili,“ ozval se RÍŠA.","„Co?“","„Čas.“","„Kdo byl ten pátý?“","Chvíli bylo ticho.","„Já.“","Všichni se na sebe podívali.","„Co tím myslíš?“","RÍŠA zavěsil."]},
+  {"title":"PÁTÉ MÍSTO","paras":["Na tabuli se objevilo nové označení: RÍŠA = 4","Patrik se otočil.","„Ale my jsme čtyři.“","Lukáš odpověděl: „Právě.“","Světla zhasla.","Ve tmě zazněl Patrikův vlastní hlas: „Jeden z vás pořád chybí.“"]},
+  {"title":"CHYBĚJÍCÍ","paras":["Na stole se objevila fotografie.","Patrik. Vojta. Adam. Lukáš. RÍŠA.","A za nimi ještě někdo.","Na zadní straně fotografie stálo: NECHYBÍ. JEN HO NEVIDÍTE.","14.10.2025","ZAČALO TO VE ŠKOLE."]},
+  {"title":"NÁVRAT","paras":["Zazvonil školní zvonek.","Obraz kolem nich se rozmazal.","V další vteřině stáli znovu v domě číslo 28.","Na zdi svítilo 20:28.","Na telefonech se objevily tři zprávy:","NEZAČALO TO V DOMĚ.","NEZAČALO TO V LESE.","ZAČALO TO VE ŠKOLE.","Pak přišla poslední:","NECHOĎTE TAM ZÍTRA.","PROTOŽE TAM UŽ JSTE."]},
+  {"title":"20:29","paras":["Všichni sledovali hodiny.","20:28","20:29","Patrik čekal, že se všechno vrátí zpět.","Nic.","20:30","„Reset nepřijde,“ řekl Lukáš.","20:31","„Konec,“ zašeptal.","Na zdi se objevila poslední zpráva:","RÍŠA VÍ, KDO BYL PRVNÍ.","A pod ní:","PRVNÍ UŽ VÍ, ŽE HO HLEDÁTE."]}
+];
+
+let currentChapter = 0;
+let fontSize = 100;
+
+function escapeText(text) {
+  return String(text).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+function openChapter(i) {
+  currentChapter = i;
+  document.getElementById("list").style.display = "none";
+  document.getElementById("reader").style.display = "block";
+
+  const c = chapters[i];
+  document.getElementById("content").innerHTML =
+    '<article class="chapter">' +
+    '<div class="num">KAPITOLA ' + (i + 1) + '</div>' +
+    '<h2>' + escapeText(c.title) + '</h2>' +
+    '<div class="story">' +
+    c.paras.map(p => '<p>' + escapeText(p) + '</p>').join("") +
+    '</div></article>';
+
+  updateNavigation();
+  applyFontSize();
+  window.scrollTo(0,0);
+}
+
+function closeChapter() {
+  document.getElementById("reader").style.display = "none";
+  document.getElementById("list").style.display = "block";
+  window.scrollTo(0,0);
+}
+
+function previousChapter() {
+  if (currentChapter > 0) openChapter(currentChapter - 1);
+}
+
+function nextChapter() {
+  if (currentChapter < chapters.length - 1) openChapter(currentChapter + 1);
+}
+
+function updateNavigation() {
+  document.getElementById("prevBtn").disabled = currentChapter === 0;
+  document.getElementById("nextBtn").disabled = currentChapter === chapters.length - 1;
+}
+
+function changeFontSize(direction) {
+  fontSize = Math.max(80, Math.min(140, fontSize + direction * 10));
+  document.getElementById("sizeLabel").textContent = fontSize + " %";
+  applyFontSize();
+}
+
+function applyFontSize() {
+  const story = document.querySelector("#content .story");
+  if (story) story.style.fontSize = (19 * fontSize / 100) + "px";
+}
+</script></body></html>
